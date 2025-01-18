@@ -46,15 +46,31 @@ jobs:  # Telling what jobs we need to happen
       - name: Rename APK
         run: mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/ady_user_${{ env.VERSION }}.apk
 
-      #8 Upload APK
-      - name: Upload APK 
-        id: upload_apk
-        uses: actions/upload-artifact@v4
+      #8 Create Release
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: ady_user_${{ env.VERSION }}
-          path: build/app/outputs/flutter-apk/ady_user_${{ env.VERSION }}.apk
+          tag_name: v${{ env.VERSION }}
+          release_name: Release v${{ env.VERSION }}
+          draft: false
+          prerelease: false
 
-      #9 Send Email
+      #9 Upload APK to Release
+      - name: Upload APK to Release
+        id: upload_release_asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/app/outputs/flutter-apk/ady_user_${{ env.VERSION }}.apk
+          asset_name: ady_user_${{ env.VERSION }}.apk
+          asset_content_type: application/vnd.android.package-archive
+
+      #10 Send Email
       - name: Send Email
         uses: dawidd6/action-send-mail@v3
         with:
@@ -63,7 +79,7 @@ jobs:  # Telling what jobs we need to happen
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
           subject: Build Completed
-          body: The build has been completed successfully. You can download the APK from the following link ${{ steps.upload_apk.outputs.download_url }}
+          body: The build has been completed successfully. You can download the APK from the following link: ${{ steps.upload_release_asset.outputs.browser_download_url }}
           to: foxahmed71@gmail.com
           from: ahmed.alsabonabi@gmail.com
 

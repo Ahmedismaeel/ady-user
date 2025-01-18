@@ -55,14 +55,22 @@ jobs:  # Telling what jobs we need to happen
           name: ady_user_${{ env.VERSION }}
           path: build/app/outputs/flutter-apk/ady_user_${{ env.VERSION }}.apk
 
-      #9 Upload APK to File.io
-      - name: Upload APK to File.io
-        run: |
-          response=$(curl -F "file=@build/app/outputs/flutter-apk/ady_user_${{ env.VERSION }}.apk" https://file.io)
-          echo "DOWNLOAD_LINK=$(echo $response | jq -r '.link')" >> $GITHUB_ENV
+      #9 Upload APK to Firebase App Distribution
+      - name: Upload APK to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{ secrets.FIREBASE_APP_ID }}
+          token: ${{ secrets.FIREBASE_TOKEN }}
+          groups: testers
+          file: build/app/outputs/flutter-apk/ady_user_${{ env.VERSION }}.apk
 
-      #10 Send Email with Download Link
-      - name: Send Email
+      # #10 Upload APK to File.io
+      # - name: Upload APK to File.io
+      #   run: |
+      #     response=$(curl -F "file=@build/app/outputs/flutter-apk/ady_user_${{ env.VERSION }}.apk" https://file.io)
+      #     echo "DOWNLOAD_LINK=$(echo $response | jq -r '.link')" >> $GITHUB_ENV
+
+      #11 Send Email with Download Link
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
@@ -72,8 +80,6 @@ jobs:  # Telling what jobs we need to happen
           subject: Build Completed
           body: |
             The build has been completed successfully. 
-            Download the APK from the following link: 
-            ${{ env.DOWNLOAD_LINK }}
           to: foxahmed71@gmail.com
           from: ahmed.alsabonabi@gmail.com 
 

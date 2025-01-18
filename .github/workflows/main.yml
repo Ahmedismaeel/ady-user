@@ -63,7 +63,7 @@ jobs:  # Telling what jobs we need to happen
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
           subject: Build Completed
-          body: The build has been completed successfully. You can download the APK from the following link: ${{ steps.upload_apk.outputs.download_url }}
+          body: The build has been completed successfully. You can download the APK from the following link ${{ steps.upload_apk.outputs.download_url }}
           to: foxahmed71@gmail.com
           from: ahmed.alsabonabi@gmail.com
 

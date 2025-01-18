@@ -33,20 +33,27 @@ jobs:  # Telling what jobs we need to happen
       - name: Install Dependencies
         run: flutter pub get
 
-      #5 Build APK
+      #5 Get Version from pubspec.yaml
+      - name: Get Version
+        id: get_version
+        run: echo "VERSION=$(grep '^version:' pubspec.yaml | sed 's/version: //')" >> $GITHUB_ENV
+
+      #6 Build APK
       - name: Build APK
         run: flutter build apk --release
 
-    
-      #6 Upload APK
+      #7 Rename APK with Version
+      - name: Rename APK
+        run: mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/ady_user_${{ env.VERSION }}.apk
+
+      #8 Upload APK
       - name: Upload APK 
         uses: actions/upload-artifact@v4
         with:
-          name: app-release
-          path: |
-            build/app/outputs/flutter-apk/app-release.apk
+          name: ady_user_${{ env.VERSION }}
+          path: build/app/outputs/flutter-apk/ady_user_${{ env.VERSION }}.apk
 
-      #7 Send Email
+      #9 Send Email
       - name: Send Email
         uses: dawidd6/action-send-mail@v3
         with:
@@ -58,7 +65,7 @@ jobs:  # Telling what jobs we need to happen
           body: The build has been completed successfully. 
           to: foxahmed71@gmail.com
           from: ahmed.alsabonabi@gmail.com
-          attachments: build/app/outputs/flutter-apk/app-release.zipx
+          attachments: build/app/outputs/flutter-apk/ady_user_${{ env.VERSION }}.apk
 
   notify_failure:
     name: Notify Failure

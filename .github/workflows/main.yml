@@ -55,30 +55,13 @@ jobs:  # Telling what jobs we need to happen
           name: ady_user_${{ env.VERSION }}
           path: build/app/outputs/flutter-apk/ady_user_${{ env.VERSION }}.apk
 
-      #9 Create GitHub Release
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: v${{ env.VERSION }}
-          release_name: Release v${{ env.VERSION }}
-          draft: false
-          prerelease: false
+      #9 Upload APK to File.io
+      - name: Upload APK to File.io
+        run: |
+          response=$(curl -F "file=@build/app/outputs/flutter-apk/ady_user_${{ env.VERSION }}.apk" https://file.io)
+          echo "DOWNLOAD_LINK=$(echo $response | jq -r '.link')" >> $GITHUB_ENV
 
-      #10 Upload APK to Release
-      - name: Upload APK to Release
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: build/app/outputs/flutter-apk/ady_user_${{ env.VERSION }}.apk
-          asset_name: ady_user_${{ env.VERSION }}.apk
-          asset_content_type: application/vnd.android.package-archive
-
-      #11 Send Email with Download Link
+      #10 Send Email with Download Link
       - name: Send Email
         uses: dawidd6/action-send-mail@v3
         with:
@@ -87,7 +70,10 @@ jobs:  # Telling what jobs we need to happen
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
           subject: Build Completed
-          body: The build has been completed successfully. Download the APK from the following link => https://github.com/${{ github.repository }}/releases/download/v${{ env.VERSION }}/ady_user_${{ env.VERSION }}.apk
+          body: |
+            The build has been completed successfully. 
+            Download the APK from the following link: 
+            ${{ env.DOWNLOAD_LINK }}
           to: foxahmed71@gmail.com
           from: ahmed.alsabonabi@gmail.com 
 

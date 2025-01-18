@@ -4,12 +4,14 @@ on:
   push:
     branches:
       - main
+permissions:
+  contents: write
 
 jobs:  # Telling what jobs we need to happen
   build:      # Specify the building name and machine
     name: Build & Release  # you can name the build whatever you want
     runs-on: macos-latest # here we selected macos-latest to be able to get ios build
-
+    
     steps:
       #1 Checkout Repository
       - name: Checkout Repository
@@ -95,6 +97,12 @@ jobs:  # Telling what jobs we need to happen
     needs: build
     if: failure()
     steps:
+      - name: Upload Logs
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-logs
+          path: ${{ runner.temp }}/_temp/_runner_file_commands/*.log
+
       - name: Send Failure Email
         uses: dawidd6/action-send-mail@v3
         with:
@@ -103,6 +111,7 @@ jobs:  # Telling what jobs we need to happen
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
           subject: Build Failed
-          body: The build has failed. Please check the logs for more details.
+          body: The build has failed. Please check the attached logs for more details.
           to: foxahmed71@gmail.com
           from: ahmed.alsabonabi@gmail.com
+          attachments: ${{ runner.temp }}/_temp/_runner_file_commands/*.log

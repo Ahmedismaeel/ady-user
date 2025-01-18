@@ -71,6 +71,7 @@ jobs:  # Telling what jobs we need to happen
       #     echo "DOWNLOAD_LINK=$(echo $response | jq -r '.link')" >> $GITHUB_ENV
 
       #11 Send Email with Download Link
+      - name: Send Email
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com

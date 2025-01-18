@@ -1,0 +1,10 @@
+[{
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "adyuser",
+      "package_name": "com.intelligentprojects.adyuser",
+      "sha256_cert_fingerprints":
+      [
+        "36:36:C3:BA:0C:22:5B:93:07:0A:16:D4:36:55:FD:46:AA:1C:D4:18:6B:2A:CC:60:FC:47:60:4F:A2:78:5E:AC"]
+    }
+  }]

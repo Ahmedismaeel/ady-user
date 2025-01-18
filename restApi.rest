@@ -1,0 +1,1 @@
+GET https://ady.ip-teamway.com/api/v1/config

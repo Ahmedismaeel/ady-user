@@ -1,0 +1,7 @@
+
+####
+GET https://ady.ip-teamway.com/api/v1/categories?guest_id=1
+
+####
+GET https://ady.ip-teamway.com/api/v1/categories?guest_id=1
+###

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "898472279402",
+    "project_id": "adyapp-edd48",
+    "storage_bucket": "adyapp-edd48.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:898472279402:android:147668f2d3582c6b503913",
+        "android_client_info": {
+          "package_name": "com.intelligentprojects.ady"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCc5LyCwhQcTX_Ma6yWMN0YnB5ewW0EWus"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:898472279402:android:febaf1cb2f0c6626503913",
+        "android_client_info": {
+          "package_name": "com.intelligentprojects.adyuser"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCc5LyCwhQcTX_Ma6yWMN0YnB5ewW0EWus"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

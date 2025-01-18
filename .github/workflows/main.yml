@@ -48,6 +48,7 @@ jobs:  # Telling what jobs we need to happen
 
       #8 Upload APK
       - name: Upload APK 
+        id: upload_apk
         uses: actions/upload-artifact@v4
         with:
           name: ady_user_${{ env.VERSION }}
@@ -62,10 +63,9 @@ jobs:  # Telling what jobs we need to happen
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
           subject: Build Completed
-          body: The build has been completed successfully. 
+          body: The build has been completed successfully. You can download the APK from the following link: ${{ steps.upload_apk.outputs.download_url }}
           to: foxahmed71@gmail.com
           from: ahmed.alsabonabi@gmail.com
-          attachments: build/app/outputs/flutter-apk/ady_user_${{ env.VERSION }}.apk
 
   notify_failure:
     name: Notify Failure

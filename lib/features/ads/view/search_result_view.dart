@@ -229,13 +229,13 @@ class _SearchResultViewState extends ConsumerState<SearchResultView>
                     color: page == 0 ? UiColors.white : UiColors.medGrey),
               ),
               1: Text(
-                "Product".translate(context),
+                "products".translate(context),
                 textAlign: TextAlign.center,
                 style: textStyle(15).copyWith(
                     color: page == 1 ? UiColors.white : UiColors.medGrey),
               ),
               2: Text(
-                "Service".translate(context),
+                "services".translate(context),
                 textAlign: TextAlign.center,
                 style: textStyle(15).copyWith(
                     color: page == 2 ? UiColors.white : UiColors.medGrey),

@@ -21,8 +21,13 @@ import 'package:nb_utils/nb_utils.dart';
 
 final sellerProvider = FutureProvider.family
     .autoDispose<List<PlanModel>, int>((ref, int id) async {
-  return await AppConstants.planListByType(id)
+  List<PlanModel> list = await AppConstants.planListByType(id)
       .getList(fromJson: PlanModel.fromJson);
+
+  // Sort the list to start with items where is_default is 1
+  list.sort((a, b) => (b.is_default ?? 0).compareTo((a.is_default ?? 0)));
+
+  return list;
 });
 
 class SellerPlansView extends ConsumerWidget {

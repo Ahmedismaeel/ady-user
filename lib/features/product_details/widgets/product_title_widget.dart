@@ -114,76 +114,75 @@ class ProductTitleWidget extends StatelessWidget {
                           : const SizedBox(height: Dimensions.paddingSizeSmall),
                       isAd || productModel?.categoryId == 4
                           ? SizedBox()
-                          : Consumer<ReviewController>(
-                              builder: (context, reviewController, _) {
-                              return Row(children: [
-                                Text.rich(TextSpan(children: [
-                                  TextSpan(
-                                      text:
-                                          '${productModel?.currentStock ?? 0} ',
-                                      style: textMedium.copyWith(
-                                          color: UiColors.error,
-                                          fontSize:
-                                              Dimensions.fontSizeDefault)),
-                                  TextSpan(
-                                      text:
-                                          '${getTranslated('in_stock', context)} ',
-                                      style: textRegular.copyWith(
-                                        fontSize: Dimensions.fontSizeDefault,
-                                      ))
-                                ])),
-                                // Text.rich(TextSpan(children: [
-                                //   TextSpan(
-                                //       text:
-                                //           '${reviewController.reviewList != null ? reviewController.reviewList!.length : 0} ',
-                                //       style: textMedium.copyWith(
-                                //           color: Provider.of<ThemeController>(context,
-                                //                       listen: false)
-                                //                   .darkTheme
-                                //               ? Theme.of(context).hintColor
-                                //               : Theme.of(context).primaryColor,
-                                //           fontSize: Dimensions.fontSizeDefault)),
-                                //   TextSpan(
-                                //       text: '${getTranslated('reviews', context)} | ',
-                                //       style: textRegular.copyWith(
-                                //         fontSize: Dimensions.fontSizeDefault,
-                                //       ))
-                                // ])),
-                                // Text.rich(TextSpan(children: [
-                                //   TextSpan(
-                                //       text: '${details.orderCount} ',
-                                //       style: textMedium.copyWith(
-                                //           color: Provider.of<ThemeController>(context,
-                                //                       listen: false)
-                                //                   .darkTheme
-                                //               ? Theme.of(context).hintColor
-                                //               : Theme.of(context).primaryColor,
-                                //           fontSize: Dimensions.fontSizeDefault)),
-                                //   TextSpan(
-                                //       text: '${getTranslated('orders', context)} | ',
-                                //       style: textRegular.copyWith(
-                                //         fontSize: Dimensions.fontSizeDefault,
-                                //       ))
-                                // ])),
-                                // Text.rich(TextSpan(children: [
-                                //   TextSpan(
-                                //       text: '${details.wishCount} ',
-                                //       style: textMedium.copyWith(
-                                //           color: Provider.of<ThemeController>(context,
-                                //                       listen: false)
-                                //                   .darkTheme
-                                //               ? Theme.of(context).hintColor
-                                //               : Theme.of(context).primaryColor,
-                                //           fontSize: Dimensions.fontSizeDefault)),
-                                //   TextSpan(
-                                //       text:
-                                //           '${getTranslated('wish_listed', context)}',
-                                //       style: textRegular.copyWith(
-                                //         fontSize: Dimensions.fontSizeDefault,
-                                //       ))
-                                // ])),
-                              ]);
-                            }),
+                          : (productModel?.currentStock ?? 0.00) < 10
+                              ? Row(children: [
+                                  Text.rich(TextSpan(children: [
+                                    TextSpan(
+                                        text:
+                                            '${productModel?.currentStock ?? 0} ',
+                                        style: textMedium.copyWith(
+                                            color: UiColors.error,
+                                            fontSize:
+                                                Dimensions.fontSizeDefault)),
+                                    TextSpan(
+                                        text:
+                                            '${getTranslated('in_stock', context)} ',
+                                        style: textRegular.copyWith(
+                                          fontSize: Dimensions.fontSizeDefault,
+                                        ))
+                                  ])),
+                                  // Text.rich(TextSpan(children: [
+                                  //   TextSpan(
+                                  //       text:
+                                  //           '${reviewController.reviewList != null ? reviewController.reviewList!.length : 0} ',
+                                  //       style: textMedium.copyWith(
+                                  //           color: Provider.of<ThemeController>(context,
+                                  //                       listen: false)
+                                  //                   .darkTheme
+                                  //               ? Theme.of(context).hintColor
+                                  //               : Theme.of(context).primaryColor,
+                                  //           fontSize: Dimensions.fontSizeDefault)),
+                                  //   TextSpan(
+                                  //       text: '${getTranslated('reviews', context)} | ',
+                                  //       style: textRegular.copyWith(
+                                  //         fontSize: Dimensions.fontSizeDefault,
+                                  //       ))
+                                  // ])),
+                                  // Text.rich(TextSpan(children: [
+                                  //   TextSpan(
+                                  //       text: '${details.orderCount} ',
+                                  //       style: textMedium.copyWith(
+                                  //           color: Provider.of<ThemeController>(context,
+                                  //                       listen: false)
+                                  //                   .darkTheme
+                                  //               ? Theme.of(context).hintColor
+                                  //               : Theme.of(context).primaryColor,
+                                  //           fontSize: Dimensions.fontSizeDefault)),
+                                  //   TextSpan(
+                                  //       text: '${getTranslated('orders', context)} | ',
+                                  //       style: textRegular.copyWith(
+                                  //         fontSize: Dimensions.fontSizeDefault,
+                                  //       ))
+                                  // ])),
+                                  // Text.rich(TextSpan(children: [
+                                  //   TextSpan(
+                                  //       text: '${details.wishCount} ',
+                                  //       style: textMedium.copyWith(
+                                  //           color: Provider.of<ThemeController>(context,
+                                  //                       listen: false)
+                                  //                   .darkTheme
+                                  //               ? Theme.of(context).hintColor
+                                  //               : Theme.of(context).primaryColor,
+                                  //           fontSize: Dimensions.fontSizeDefault)),
+                                  //   TextSpan(
+                                  //       text:
+                                  //           '${getTranslated('wish_listed', context)}',
+                                  //       style: textRegular.copyWith(
+                                  //         fontSize: Dimensions.fontSizeDefault,
+                                  //       ))
+                                  // ])),
+                                ])
+                              : SizedBox(),
                       const SizedBox(height: Dimensions.paddingSizeSmall),
                       productModel!.colors != null &&
                               productModel!.colors!.isNotEmpty

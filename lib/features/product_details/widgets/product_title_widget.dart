@@ -113,7 +113,7 @@ class ProductTitleWidget extends StatelessWidget {
                           ? SizedBox()
                           : const SizedBox(height: Dimensions.paddingSizeSmall),
                       isAd || productModel?.categoryId == 4
-                          ? SizedBox()
+                          ? SizedBox() // stock
                           : (productModel?.currentStock ?? 0.00) < 10
                               ? Row(children: [
                                   Text.rich(TextSpan(children: [

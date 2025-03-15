@@ -6,7 +6,7 @@ class AppConstants {
   static const String slogan = 'Ads & E-Commerce Marketplace';
   static const String appVersion = '14.90';
   static String viewAd(id) => "/api/v3/seller/views/$id";
-  static const String baseUrl = 'https://ady.ip-teamway.com';
+  static const String baseUrl = 'https://adytheapp.com';
   static const String userId = 'userId';
   static const String name = 'name';
   static const String categoriesUri = '/api/v1/categories?guest_id=1';
